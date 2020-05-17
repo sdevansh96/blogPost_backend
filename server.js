@@ -1,6 +1,8 @@
 const app = require('./app');
 const mongoose=require('mongoose')
 const dotenv=require('dotenv');
+var morgan = require('morgan')
+
 dotenv.config({
     path:'./config.env'
 })
@@ -10,13 +12,15 @@ mongoose.connect(dbConnect,{
     useNewUrlParser:true,
     useCreateIndex:true,
     useFindAndModify:true,
-    useUnifiedTopology:true
+    useUnifiedTopology:true,
+    autoIndex: true,
 }).then(res=>{
     console.log("db is connected")
 }).catch(e=>{
-    console.log('DB connection errr')
+    console.log('DB connection errr',e)
 })
 
 app.listen(process.env.PORT,()=>{
     console.log('Server is running on port '+ process.env.PORT)
 })
+
